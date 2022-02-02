@@ -1,0 +1,5 @@
+
+WorkQueuesWithMultipleConsumers/rabbitmq/data/*
+WorkQueuesWithMultipleConsumers/rabbitmq/log/*
+!WorkQueuesWithMultipleConsumers/rabbitmq/data/.gitkeep
+!WorkQueuesWithMultipleConsumers/rabbitmq/log/.gitkeep
