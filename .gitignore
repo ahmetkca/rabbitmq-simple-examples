@@ -3,3 +3,8 @@ WorkQueuesWithMultipleConsumers/rabbitmq/data/*
 WorkQueuesWithMultipleConsumers/rabbitmq/log/*
 !WorkQueuesWithMultipleConsumers/rabbitmq/data/.gitkeep
 !WorkQueuesWithMultipleConsumers/rabbitmq/log/.gitkeep
+
+PublishAndSubscribe/rabbitmq/data/*
+PublishAndSubscribe/rabbitmq/log/*
+!PublishAndSubscribe/rabbitmq/data/.gitkeep
+!PublishAndSubscribe/rabbitmq/log/.gitkeep
