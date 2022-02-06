@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  rabbitmq-svc:
+    hostname: rabbitmq-srv
+    image: rabbitmq:3-management
+    container_name: rabbitmq-ctr
+    ports:
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=dev_user
+      - RABBITMQ_DEFAULT_PASS=pa55w0rd
+    healthcheck:
+      test: rabbitmq-diagnostics -q status
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq/mnesia/
+      - ./rabbitmq/log/:/var/log/rabbitmq/
+    networks:
+      - rabbitmq-net
+
+  publisher-svc:
+    container_name: publisher-ctr
+    image: rabbitmq-pub-sub-python-publisher:latest
+    environment:
+      - RABBITMQ_USER=dev_user
+      - RABBITMQ_PASSWORD=pa55w0rd
+      - FROM_TASK_ID=150
+      - TO_TASK_ID=175
+    depends_on:
+      rabbitmq-svc:
+        condition: service_healthy
+    networks:
+      - rabbitmq-net
+
+  subscriber1-svc:
+    container_name: subscriber1-ctr
+    image: rabbitmq-pub-sub-python-subscriber:latest
+    command: ["python", "subscriber.py"]
+    environment:
+      - RABBITMQ_USER=dev_user
+      - RABBITMQ_PASSWORD=pa55w0rd
+    entrypoint: ./start.sh
+    depends_on:
+      rabbitmq-svc:
+        condition: service_healthy
+    networks:
+      - rabbitmq-net
+  
+  subscriber2-svc:
+    container_name: subscriber2-ctr
+    image: rabbitmq-pub-sub-python-subscriber:latest
+    entrypoint: [./start.sh, --logs]
+    environment:
+      - RABBITMQ_USER=dev_user
+      - RABBITMQ_PASSWORD=pa55w0rd
+    volumes:
+      - ./subscriber/logs/:/usr/src/app/logs/
+    depends_on:
+      rabbitmq-svc:
+        condition: service_healthy
+    networks:
+      - rabbitmq-net
+
+
+networks:
+  rabbitmq-net:
+    driver: bridge
