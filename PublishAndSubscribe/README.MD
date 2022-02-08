@@ -8,6 +8,7 @@ In fanout the exchange will broadcast all the published messages to all the queu
 Publisher publishes messages in random interval to the exchange named 'logs' it doesn't even know about the queues, the exchange will act as a gateway between queues and publisher.
 
 Subscriber 1 is using stdout to print to console
+
 Subscriber 2 is directly outputing into subscriber/logs/logs_from_subscriber.log file
 
 ![Publisher/Subscriber](/PublishAndSubscribe/FanoutPublisherSubscriber.png)
