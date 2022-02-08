@@ -9,7 +9,7 @@ def main():
     logger.info(" - Connecting to the RabbitMQ Server... - ")
     connecion = pika.BlockingConnection(
         pika.ConnectionParameters(
-            host='rabbitmq-srv',
+            host=os.environ.get('RABBITMQ_HOST', 'rabbitmq-srv'),
             connection_attempts=5,
             retry_delay=5,
             credentials=pika.PlainCredentials(

@@ -14,12 +14,12 @@ logger.info(" ... PRODUCER ... ")
 logger.info(" - Connecting to the RabbitMQ Server... - ")
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(
-        host='rabbitmq-srv',
+        host=os.environ.get('RABBITMQ_HOST', 'rabbitmq-srv'),
         connection_attempts=5,
         retry_delay=5,
         credentials=pika.PlainCredentials(
-            username=os.environ.get('RABBITMQ_USER'), 
-            password=os.environ.get('RABBITMQ_PASSWORD')
+            username=os.environ.get('RABBITMQ_USER', 'dev_user'), 
+            password=os.environ.get('RABBITMQ_PASSWORD', 'pa55w0rd')
         )
     )
 )

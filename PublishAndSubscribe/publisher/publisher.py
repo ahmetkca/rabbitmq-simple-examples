@@ -11,10 +11,10 @@ class RabbitMQ:
 def main():
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
-            host="rabbitmq-srv",
+            host=os.environ.get("RABBITMQ_HOST", 'rabbitmq_srv'),
             credentials=pika.PlainCredentials(
-                username="dev_user",
-                password="pa55w0rd"
+                username=os.environ.get('RABBITMQ_USER', 'dev_user'),
+                password=os.environ.get('RABBITMQ_PASSWORD', 'pa55w0rd'),
             ),
             connection_attempts=10,
             retry_delay=5,

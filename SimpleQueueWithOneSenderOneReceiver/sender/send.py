@@ -8,7 +8,7 @@ logger.addHandler(console_handler)
 logger.info(" - Connecting to the RabbitMQ Server... - ")
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(
-        host='rabbitmq-srv',
+        host=os.environ.get('RABBITMQ_HOST', 'rabbitmq-srv'),
         connection_attempts=5,
         retry_delay=5,
         credentials=pika.PlainCredentials(
