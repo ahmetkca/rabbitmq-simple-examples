@@ -8,3 +8,8 @@ PublishAndSubscribe/rabbitmq/data/*
 PublishAndSubscribe/rabbitmq/log/*
 !PublishAndSubscribe/rabbitmq/data/.gitkeep
 !PublishAndSubscribe/rabbitmq/log/.gitkeep
+
+Routing/rabbitmq/data/*
+Routing/rabbitmq/log/*
+!Routing/rabbitmq/data/.gitkeep
+!Routing/rabbitmq/log/.gitkeep
